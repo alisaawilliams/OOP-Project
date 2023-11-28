@@ -95,49 +95,51 @@ class SecondLevel
     }
 }
 
-class ThirdLevel 
-{
-    public void DiceRollingGame() 
-    {
+public class ThirdLevel {
+
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
 
-        int targetTotal = 25;
-        int currentTotal = 0;
-        int rolls = 0;
+        System.out.print("Enter the target sum: ");
+        int targetSum = scanner.nextInt();
+        
 
-        System.out.println("\nThis is the third level. Welcome to the Dice Rolling Game!");
-        System.out.println("Try to reach the target total of " + targetTotal);
+        int currentSum = 0;
+        int rollCount = 0;
 
-        while (currentTotal < targetTotal) 
-        {
-            int roll = rollDie();
-            currentTotal += roll;
-            rolls++;
+        while (currentSum < targetSum) {
+            int roll = rollDice();
+            currentSum += roll;
+            rollCount++;
 
-            System.out.println("Roll #" + rolls + ": You rolled a " + roll + " (Current Total: " + currentTotal + ")");
+            System.out.println("Roll " + rollCount + " \n---------\nYou rolled a " + roll + " \nCurrent sum: " + currentSum);
 
-            if (currentTotal >= targetTotal) {
-                System.out.println("Congratulations! You reached the target total in " + rolls + " rolls.");
-                System.out.println("You may proceed to the next level.");
-            } else {
-                System.out.print("Roll again? (yes/no): ");
-                String response = scanner.nextLine().toLowerCase();
+            if (currentSum == targetSum) {
+                System.out.println("Congratulations! You reached the target sum.");
+                break;
+            }
+            if(currentSum>targetSum)
+            {
+                System.out.println("Current number too high, you lost!");
+                break;
+            }
 
-                if (!response.equals("yes")) {
-                    System.out.println("Thanks for playing! Your final total is " + currentTotal);
-                    break;
-                }
+            System.out.print("Do you want to roll again? (y/n): ");
+            char choice = scanner.next().charAt(0);
+            
+            if (choice == 'n') {
+                System.out.println("Game over. Your final count number is: " + currentSum);
+                break;
             }
         }
 
-        //scanner.close();
+        scanner.close();
     }
 
-    private static int rollDie() 
-    {
+    private static int rollDice() {
         Random random = new Random();
-        return random.nextInt(6) + 1; // Returns a random number between 1 and 6
+        return random.nextInt(6) + 1;
     }
 }
 
